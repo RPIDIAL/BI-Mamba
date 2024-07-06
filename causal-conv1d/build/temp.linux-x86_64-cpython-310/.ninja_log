@@ -1,0 +1,5 @@
+# ninja log v5
+2	4800	1707849203283144000	/fast/yangz16/Vim/causal-conv1d/build/temp.linux-x86_64-cpython-310/csrc/causal_conv1d_update.o	687e56b53c4aa8e3
+2	13037	1707849211504550000	/fast/yangz16/Vim/causal-conv1d/build/temp.linux-x86_64-cpython-310/csrc/causal_conv1d_fwd.o	5be90dd884e09f29
+1	20631	1707849219143874000	/fast/yangz16/Vim/causal-conv1d/build/temp.linux-x86_64-cpython-310/csrc/causal_conv1d.o	aa4e593f23c599f1
+1	39878	1707849238310700000	/fast/yangz16/Vim/causal-conv1d/build/temp.linux-x86_64-cpython-310/csrc/causal_conv1d_bwd.o	36d662fd265dc75c
