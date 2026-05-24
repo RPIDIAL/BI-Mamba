@@ -23,7 +23,13 @@ class NLSTDual(VisionDataset):
         super().__init__(root, transform=transform, target_transform=target_transform)
         self.split = split
 
+<<<<<<< HEAD
+        # Load JSON
+        json_path = "/content/data/nlst_splits.json"
+        print(f"[DEBUG] Loading JSON from: {json_path}")
+=======
         json_path = '/fast/yangz16/outputs/dinov2/nlst_splits.json'
+>>>>>>> upstream/main
         with open(json_path, 'r') as json_file:
             data_dict = json.load(json_file)
 
@@ -34,6 +40,32 @@ class NLSTDual(VisionDataset):
         elif self.split == 'test':
             split_ls = data_dict['test']
         else:
+<<<<<<< HEAD
+            raise ValueError(f"Wrong data split: {self.split}")
+
+        self.images = [p['frontal'] for p in split_ls]
+        self.labels = [np.array(p['label']) for p in split_ls]
+        self.num_classes = 1
+        print(f"[DEBUG] NLSTDual ({self.split}) initialized. Found {len(self.images)} images.")
+
+        # Define Standard ImageNet Normalization
+        self.normalize = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+
+    def get_image_data(self, index):
+        image_path = self.images[index]
+        
+        # Open as RGB
+        image_front = Image.open(image_path).convert('RGB')
+        image_lat = Image.open(image_path).convert('RGB')
+        
+        # Apply Normalization
+        image_front = self.normalize(image_front)
+        image_lat = self.normalize(image_lat)
+        
+=======
             raise "Wrong data split"
 
         image_base = '/fast/yangz16/outputs/dinov2/xray_simulation/npz'
@@ -49,6 +81,7 @@ class NLSTDual(VisionDataset):
         image_lat = image['lateral']
         image_front = get_image_fn(image_front)
         image_lat = get_image_fn(image_lat)
+>>>>>>> upstream/main
         return image_front, image_lat
 
     def get_target(self, index):
@@ -57,17 +90,24 @@ class NLSTDual(VisionDataset):
     def __getitem__(self, index):
         image_frontal, image_lateral = self.get_image_data(index)
         target = self.get_target(index)
+<<<<<<< HEAD
+        # Note: We skip extra self.transforms here to keep it simple and stable
+=======
 
         if self.transforms is not None:
             image_frontal, target = self.transforms(image_frontal, target)
             image_lateral, target = self.transforms(image_lateral, target)
 
+>>>>>>> upstream/main
         return (image_frontal, image_lateral), target
 
     def __len__(self) -> int:
         return len(self.labels)
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> upstream/main
 class NLST(VisionDataset):
     def __init__(
             self,

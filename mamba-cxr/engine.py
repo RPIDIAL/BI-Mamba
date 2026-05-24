@@ -137,12 +137,22 @@ def evaluate(data_loader, model, device, amp_autocast, dual_mode, cat_cls):
         # compute output
         with amp_autocast():
             output = model(images)
+<<<<<<< HEAD
+            # .view(-1) safely flattens [Batch, 1] to [Batch] without destroying size 1 batches
+            loss = criterion(output.view(-1), target)
+
+        # acc1, acc5 = accuracy(output, target, topk=(1, 5))
+        # auroc = binaryauroc(output.squeeze(), target)
+        outall.append(output.view(-1).detach().cpu())
+        tarall.append(target.view(-1).detach().cpu())
+=======
             loss = criterion(output.squeeze(), target)
 
         # acc1, acc5 = accuracy(output, target, topk=(1, 5))
         # auroc = binaryauroc(output.squeeze(), target)
         outall.append(output.squeeze())
         tarall.append(target)
+>>>>>>> upstream/main
 
         # batch_size = images.shape[0]
         metric_logger.update(loss=loss.item())

@@ -342,7 +342,11 @@ def main(args):
             checkpoint = torch.hub.load_state_dict_from_url(
                 args.finetune, map_location='cpu', check_hash=True)
         else:
+<<<<<<< HEAD
+            checkpoint = torch.load(args.finetune, map_location='cpu', weights_only=False)
+=======
             checkpoint = torch.load(args.finetune, map_location='cpu')
+>>>>>>> upstream/main
 
         checkpoint_model = checkpoint['model']
         state_dict = model.state_dict()
@@ -474,7 +478,11 @@ def main(args):
             checkpoint = torch.hub.load_state_dict_from_url(
                 args.resume, map_location='cpu', check_hash=True)
         else:
+<<<<<<< HEAD
+            checkpoint = torch.load(args.resume, map_location='cpu', weights_only=False)
+=======
             checkpoint = torch.load(args.resume, map_location='cpu')
+>>>>>>> upstream/main
         model_without_ddp.load_state_dict(checkpoint['model'])
         if not args.eval and 'optimizer' in checkpoint and 'lr_scheduler' in checkpoint and 'epoch' in checkpoint:
             optimizer.load_state_dict(checkpoint['optimizer'])
